@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block body_block %}
+<div class="container mt-5">
+    {% if courses %}
+    <h1 class="mb-5">Online learning tests</h1>
+        <div class="list-grade mt-5 mb-5">
+        <!-- {% is called template tag in Django -->
+        <!-- The courses comes from the views page.
+             It is the third argument (called the context)
+             If it is not in the context, you won't be able to render content here
+             the name in course.name comes from the Models since in the view we are return all the courses from Model Course in the database -->
+        {% for course in courses %}
+        <! -- https://stackhowto.com/how-to-overlay-one-div-over-another-div-using-css/ -->
+            <div class="parent container">
+                <a href="{% url 'courses:course_details' course.id %}" class="text-decoration-none">
+                  <div class="child1"><img src="{{ course.image }}">
+                  </div>
+                  <div class="child1 child2">
+                      {% for lesson in course.lesson_set.all %}
+                      <p class="">- {{ lesson.title }}</p>
+                      {% endfor %}
+                  </div>
+                </a>
+            </div>
+        {% endfor %}
+        </div>
+</div>
+{% else %}
+<p>No courses are available.</p>
+{% endif %}
+
+{% endblock %}

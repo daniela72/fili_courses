@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block body_block %}
+<div class="container mt-5 mb-5">
+    <div class="container-fluid">
+        <h2>{{ course.name }}</h2>
+        <div class="card-columns-vertical mt-4 mb-3">
+            {% for lesson in course.lesson_set.all %}
+            <div class="card mt-1">
+                <div class="card-header"><h5>Lesson {{lesson.order}}: {{lesson.title}}</h5></div>
+                <div class="card-body">{{lesson.content}}</div>lesson ID: {{ lesson.id }}
+                <!-- courses is for the folder 'courses'. start_test: name in the urls folder  -->
+                <a class="btn btn-primary" href="{% url 'courses:start_test' course_id=course.id lesson_id=lesson.id %}">Start test</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

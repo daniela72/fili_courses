@@ -1,0 +1,6 @@
+.row > div {
+    border: 1px solid pink;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+}

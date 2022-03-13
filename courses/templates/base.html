@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'courses/courses.css' %}">
+    <meta charset="UTF-8">
+    {% block title %}<title>FiliCourses</title>{% endblock %}
+<style>
+
+.container {
+
+}
+
+h1 {
+    font-family: Comic Sans MS;
+}
+
+.list-grade {
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 15px;
+}
+
+.parent {
+    position: relative;
+    max-width: 350px;
+    height: 130px;
+
+}
+
+.child1 {
+    position: absolute;
+}
+
+.child2 {
+    z-index: 1;
+    margin-top: 60px;
+    height: 55%;
+    color: white;
+}
+
+p {
+    margin: 0;
+}
+
+@media screen and (max-width: 1200px) {
+    .list-grade {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .list-grade {
+        grid-template-columns: 1fr;
+    }
+}
+
+</style>
+</head>
+<body>
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <!-- link to url page in app courses and look for name index -->
+                <a class="navbar-brand" href="{% url 'courses:index' %}">FiliCourses</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                <li>
+                    <a class="btn btn-link" href="#">{{ user.first_name}}({{ user.username }})</a>
+                    <a class="btn btn-link" href="{% url 'courses:logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <li>
+                    <form class="form-inline" action="{% url 'courses:login' %}" method="post">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Username" name="username" >
+                            <input type="password" class="form-control" placeholder="Username" name="psw" >
+                            <button class="btn btn-primary" type="submit">Login</button>
+                            <a class="btn btn-link" href="{% url 'courses:registration' %}">Sign Up</a>
+                        </div>
+                    </form>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+{% block body_block %}
+<h1>Basic Home-Page</h1>
+{% endblock %}
+<footer>
+    <hr />
+    <div class="container">
+    <p>
+      <a href="https://www.filistudio.com/">Visit</a> our website
+    </p>
+    <p>
+      <a href="https://www.facebook.com/atfilistudio/">Like </a>us on facebook
+    </p>
+    </div>
+</footer>
+</body>
+</html>

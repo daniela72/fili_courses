@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block body_block %}
+<div class="container mt-5 mb-5">
+    <div class="container-fluid">
+        <h2>Start test for course {{ lesson.name }} - course id: {{ course_id }}</h2>
+        <div class="card-columns-vertical mt-4 mb-3">
+        <form id="questionform" action="{% url 'courses:submit_course_test' course_id=course_id lesson_id=lesson.id %}" method="post">
+            {% for question in lesson.question_set.all %}
+            <div class="card mt-1">
+                <div class="card-header"><h5>{{ question.question_text}}</h5></div>
+                    {% csrf_token %}
+                    <div class="form-group m-3">
+                        {% for choice in question.choice_set.all %}
+                        <div class="form-check">
+                        <label class="form-check-label">
+                        <input type="checkbox" name="choice_{{choice.id}}"
+                        class="form-check-input" id="{{choice.id}}"
+                        value="{{choice.id}}">{{ choice.choice_text }}
+                        </label>
+                        </div>
+                        {% endfor %}
+                    </div>
+            </div>
+            {% endfor %}
+            <input class="btn btn-success btn-block mt-2" type="submit" value="Submit">
+        </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
