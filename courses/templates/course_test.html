@@ -2,7 +2,8 @@
 {% block body_block %}
 <div class="container mt-5 mb-5">
     <div class="container-fluid">
-        <h2>Start test for course {{ lesson.name }} - course id: {{ course_id }}</h2>
+        <!-- lesson: from context in views def start_test. lesson.title: from model -->
+        <h2>Start test for course {{ lesson.title }} - course id: {{ course_id }}</h2>
         <div class="card-columns-vertical mt-4 mb-3">
         <form id="questionform" action="{% url 'courses:submit_course_test' course_id=course_id lesson_id=lesson.id %}" method="post">
             {% for question in lesson.question_set.all %}
