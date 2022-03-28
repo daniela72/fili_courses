@@ -1,23 +1,37 @@
 {% extends "base.html" %}
-{% block body_block %}
-<div class="container mt-5 mb-5">
-    <div class="container-fluid">
-        <!-- lesson: from context in views def start_test. lesson.title: from model -->
-        <h2>Start test for course {{ lesson.title }} - course id: {{ course_id }}</h2>
-        <div class="card-columns-vertical mt-4 mb-3">
+{% block title %}{{ lesson.title }} | FiliCourses{% endblock %}
+{% block content %}
+<style>
+
+
+</style>
+<div class="course-list">
+    <div class="container w-50 mx-auto">
+        <a class="link-unstyled" href="{% url 'courses:index' %}"> Courses list</a>
+        > <a class="link-unstyled" href="{% url 'courses:course_details' course_id %}">{{course.name}}</a>
+    </div>
+</div>
+<div class="container mt-5 mb-5 min-vh-100">
+    <!-- lesson: from context in views def start_test. lesson.title: from model -->
+    <!-- course id: {{ course_id }} -->
+    <h2 class="mb-5 start-test-title">{{ lesson.title }} - Start test</h2>
+    <div class="row">
+        <div class="card-columns-vertical col-lg-7 mt-3 mx-auto">
         <form id="questionform" action="{% url 'courses:submit_course_test' course_id=course_id lesson_id=lesson.id %}" method="post">
             {% for question in lesson.question_set.all %}
             <div class="card mt-1">
-                <div class="card-header"><h5>{{ question.question_text}}</h5></div>
+                <div class="card-header card-header-green">
+                    <h5>{{ question.question_text}}</h5>
+                </div>
                     {% csrf_token %}
                     <div class="form-group m-3">
                         {% for choice in question.choice_set.all %}
                         <div class="form-check">
-                        <label class="form-check-label">
-                        <input type="checkbox" name="choice_{{choice.id}}"
-                        class="form-check-input" id="{{choice.id}}"
-                        value="{{choice.id}}">{{ choice.choice_text }}
-                        </label>
+                            <input type="radio" id="{{choice.id}}"
+                                   name="choice_{{choice.id}}" class="form-check-input"
+                                   value="{{choice.id}}">
+                            <label for="{{choice.id}}" class="form-check-label">{{ choice.choice_text }}
+                            </label>
                         </div>
                         {% endfor %}
                     </div>

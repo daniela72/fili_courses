@@ -100,9 +100,11 @@ def course_details(request, course_id):
 
 def start_test(request, course_id, lesson_id):
     lesson = get_object_or_404(Lesson, pk=lesson_id)
+    course = get_object_or_404(Course, pk=course_id)
     # pass course_id
     context = {}
     context['lesson'] = lesson
+    context['course'] = course
     context['course_id'] = course_id
     return render(request, 'course_test.html', context)
 

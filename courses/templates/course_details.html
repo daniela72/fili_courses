@@ -1,15 +1,44 @@
 {% extends "base.html" %}
-{% block body_block %}
-<div class="container mt-5 mb-5">
-    <div class="container-fluid">
-        <h2>{{ course.name }}</h2>
-        <div class="card-columns-vertical mt-4 mb-3">
+{% block title %}{{ course.name }} | FiliCourses{% endblock %}
+{% block content %}
+<style>
+h2 {
+    color: purple;
+}
+
+.btn-purple {
+    background-color: purple;
+    color: white;
+}
+
+.btn-purple:hover {
+    background-color: #660066;
+    color: white;
+}
+
+.card-header-purple {
+    background-color: #FBF7FB;
+}
+
+</style>
+<div class="course-list">
+    <div class="container w-50 mx-auto">
+        <a class="link-unstyled" href="{% url 'courses:index' %}"> Courses list</a>
+    </div>
+</div>
+<div class="container mt-5 mb-5 min-vh-100">
+    <h2 class="mb-5 start-test-title">{{ course.name }}</h2>
+    <div class="row">
+        <div class="card-columns-vertical col-lg-8 mt-3 mx-auto">
             {% for lesson in course.lesson_set.all %}
-            <div class="card mt-1">
-                <div class="card-header"><h5>Lesson {{lesson.order}}: {{lesson.title}}</h5></div>
-                <div class="card-body">{{lesson.content}}</div>lesson ID: {{ lesson.id }}
+            <div class="card mt-4">
+                <div class="card-header card-header-purple">
+                    <h5>{{lesson.title}}</h5>
+                </div>
+                <div class="card-body">{{lesson.content}}</div>
+                <!-- lesson ID: {{ lesson.id }} -->
                 <!-- courses is for the folder 'courses'. start_test: name in the urls folder  -->
-                <a class="btn btn-primary" href="{% url 'courses:start_test' course_id=course.id lesson_id=lesson.id %}">Start test</a>
+                <a class="btn btn-purple" href="{% url 'courses:start_test' course_id=course.id lesson_id=lesson.id %}">Start test</a>
             </div>
             {% endfor %}
         </div>

@@ -3,66 +3,21 @@
 <head>
     {% load static %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="{% static 'courses/courses.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/courses.css' %}">
     <meta charset="UTF-8">
-    {% block title %}<title>FiliCourses</title>{% endblock %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>{% block title %}Online learning tests | FiliCourses{% endblock %}</title>
 <style>
 
-.container {
 
-}
-
-h1 {
-    font-family: Comic Sans MS;
-}
-
-.list-grade {
-
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 15px;
-}
-
-.parent {
-    position: relative;
-    max-width: 350px;
-    height: 130px;
-
-}
-
-.child1 {
-    position: absolute;
-}
-
-.child2 {
-    z-index: 1;
-    margin-top: 60px;
-    height: 55%;
-    color: white;
-}
-
-p {
-    margin: 0;
-}
-
-@media screen and (max-width: 1200px) {
-    .list-grade {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media screen and (max-width: 800px) {
-    .list-grade {
-        grid-template-columns: 1fr;
-    }
-}
 
 </style>
 </head>
 <body>
     <!-- Navigation bar -->
     <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
+        <div class="container">
             <div class="navbar-header">
                 <!-- link to url page in app courses and look for name index -->
                 <a class="navbar-brand" href="{% url 'courses:index' %}">FiliCourses</a>
@@ -77,11 +32,11 @@ p {
                 <li>
                     <form class="form-inline" action="{% url 'courses:login' %}" method="post">
                         {% csrf_token %}
-                        <div class="input-group">
+                        <div class="input-group input-group-sm">
                             <input type="text" class="form-control" placeholder="Username" name="username" >
                             <input type="password" class="form-control" placeholder="Username" name="psw" >
-                            <button class="btn btn-primary" type="submit">Login</button>
-                            <a class="btn btn-link" href="{% url 'courses:registration' %}">Sign Up</a>
+                            <button class="btn btn-primary btn-sm" type="submit">Login</button>
+                            <a class="btn btn-link btn-sm" href="{% url 'courses:registration' %}">Sign Up</a>
                         </div>
                     </form>
                 </li>
@@ -89,19 +44,69 @@ p {
             </ul>
         </div>
     </nav>
-{% block body_block %}
+{% block content %}
 <h1>Basic Home-Page</h1>
 {% endblock %}
+{% block footer %}
 <footer>
-    <hr />
-    <div class="container">
-    <p>
-      <a href="https://www.filistudio.com/">Visit</a> our website
-    </p>
-    <p>
-      <a href="https://www.facebook.com/atfilistudio/">Like </a>us on facebook
-    </p>
+    <!-- https://mdbootstrap.com/docs/b4/jquery/navigation/footer/ -->
+    <div class="container text-center text-md-left pt-3">
+
+        <div class="row">
+
+            <!-- Grid column -->
+            <div class="col-md-5 mt-md-0 mt-3">
+
+            <!-- Links -->
+            <h5 class="fw-bold">FiliCourses</h5>
+            <p class="text-justify pl-0 col-md-11 col-xs-1">FiliCourses provides free educational quizzes for kids to increase and test their knowledge in a fun way.</p>
+
+            </div>
+            <!-- Grid column -->
+
+            <hr class="clearfix w-100 d-md-none pb-3">
+
+            <!-- Grid column -->
+            <div class="col-md-3 mb-md-0 mb-3">
+
+            <!-- Links -->
+            <h6 class="fw-bold">Connect</h6>
+            <hr
+                class="mb-4 mt-0 d-inline-block mx-auto"
+                style="width: 60px; background-color: #7c4dff; height: 2px"
+                />
+              <p>
+                <a class="link-unstyled" href="#!"><i class="fa fa-facebook mr-3"></i></a>
+                <a class="link-unstyled" href="#!"><i class="fa fa-twitter mr-3"></i></a>
+              </p>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4 pb-3">
+            <!-- Links -->
+            <h6 class="fw-bold">Contact</h6>
+            <hr
+                class="mb-4 mt-0 d-inline-block mx-auto"
+                style="width: 60px; background-color: #7c4dff; height: 2px"
+                />
+            <p><i class="fa fa-home mr-3"></i>New Jersey, NJ, US</p>
+            <p><i class="fa fa-envelope mr-3"></i>courses@filistudio.com</p>
+            </div>
+            <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
     </div>
+    <!-- Footer Links -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© Copyright 2022 - <a class="link-unstyled" href="{% url 'courses:index' %}"> FiliCourses.com</a>. All rights reserved.
+    </div>
+
 </footer>
+
+    {% endblock %}
 </body>
 </html>
