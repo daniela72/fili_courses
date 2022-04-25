@@ -102,10 +102,7 @@ def start_test(request, course_id, lesson_id):
     lesson = get_object_or_404(Lesson, pk=lesson_id)
     course = get_object_or_404(Course, pk=course_id)
     # pass course_id
-    context = {}
-    context['lesson'] = lesson
-    context['course'] = course
-    context['course_id'] = course_id
+    context = {'lesson': lesson, 'course': course, 'course_id': course_id}
     return render(request, 'course_test.html', context)
 
 
@@ -161,10 +158,7 @@ def show_exam_result(request, course_id, lesson_id, submission_id):
     for choice in submission.choices.all():
         selected_ids.append(choice.id)
 
-    context = {}
-    context['course'] = course
-    context['lesson'] = lesson
-    context['selected_ids'] = selected_ids
-    context['grade'] = int(100 * grade / total_question)
+    context = {'course': course, 'lesson': lesson, 'selected_ids': selected_ids,
+               'grade': int(100 * grade / total_question)}
     return render(request, 'exam_result.html', context)
 

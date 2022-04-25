@@ -34,6 +34,9 @@ h2 {
             <div class="card mt-4">
                 <div class="card-header card-header-purple">
                     <h5>{{lesson.title}}</h5>
+                    {% if lesson.image != "none" %}
+                    <img class="img-fluid" src="{{ lesson.image }}">
+                    {% endif %}
                 </div>
                 <div class="card-body">{{lesson.content}}</div>
                 <!-- lesson ID: {{ lesson.id }} -->

@@ -19,17 +19,23 @@
         <div class="card-columns-vertical col-lg-7 mt-3 mx-auto">
         <form id="questionform" action="{% url 'courses:submit_course_test' course_id=course_id lesson_id=lesson.id %}" method="post">
             {% for question in lesson.question_set.all %}
-            <div class="card mt-1">
+            <div class="card mt-1 mb-3 border-secondary">
+                {% if question.image != "none" %}
+                <div class="card-header card-header bg-white">
+                    <img class="img-fluid" src="{{ question.image }}">
+                {% else %}
                 <div class="card-header card-header-green">
                     <h5>{{ question.question_text}}</h5>
+                    {% endif %}
                 </div>
                     {% csrf_token %}
                     <div class="form-group m-3">
                         {% for choice in question.choice_set.all %}
                         <div class="form-check">
+                            <!-- choice_{{ question.id } to loop through input with same name -->
                             <input type="radio" id="{{choice.id}}"
-                                   name="choice_{{choice.id}}" class="form-check-input"
-                                   value="{{choice.id}}">
+                                   name="choice_{{ question.id }}" class="form-check-input"
+                                   value="{{choice.id}}" required>
                             <label for="{{choice.id}}" class="form-check-label">{{ choice.choice_text }}
                             </label>
                         </div>

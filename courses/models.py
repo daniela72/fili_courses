@@ -39,18 +39,20 @@ class Course(models.Model):
 class Lesson(models.Model):
     title = models.CharField(max_length=200, default="Lesson title")
     order = models.IntegerField(default=0)
+    image = models.CharField(max_length=2083, default="none")
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     content = models.TextField()
 
     # for the admin. Returns the title lesson
     def __str__(self):
-        return self.title
+        return self.title + " - " + self.course.name
 
 
 # Create a Question Model
 class Question(models.Model):
     question_text = models.CharField(max_length=200, default="Question")
     grade = models.IntegerField(default=1)
+    image = models.CharField(max_length=2083, default="none")
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
 
     # for the admin. Return the question

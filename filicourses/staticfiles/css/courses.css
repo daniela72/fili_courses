@@ -1,0 +1,93 @@
+.navbar-brand {
+    font: 24px Myriad Pro;
+}
+
+.first-title {
+    position: absolute;
+    z-index: 1;
+    font-family: Comic Sans MS;
+    color: purple;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.link-unstyled, .link-unstyled:link, .link-unstyled:hover {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.list-grade {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 15px;
+}
+
+.parent {
+    position: relative;
+    max-width: 350px;
+    height: 130px;
+}
+
+.child1 {
+    position: absolute;
+}
+
+.child1 img {
+    max-width: 320px;
+}
+
+.child2 {
+    z-index: 1;
+    margin-top: 60px;
+    height: 55%;
+    color: white;
+}
+
+.bg-img img {
+    width: 100%;
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+.course-list {
+    background-color: #F7F5FA;
+    color: #400040;
+}
+
+.card-header-green {
+    background-color: #F8FBF8;
+}
+
+.start-test-title {
+    color: purple;
+}
+
+footer {
+    margin-top: 20px;
+    background-color: rgba(255,253,206,0.4);
+}
+
+.footer-copyright {
+    background-color: #F9FCEE;
+    font-size: 14px;
+}
+
+@media screen and (max-width: 800px) {
+    .first-title {
+        margin-top: 10px;
+        font-size: 22px;
+    }
+
+    .list-grade {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .list-grade {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

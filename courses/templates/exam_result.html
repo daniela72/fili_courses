@@ -1,39 +1,44 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container mt-5 mb-5 min-vh-100">
-    <h2 class="mb-5">{{ course.name }}</h2>
+    <h2 class="mb-5 start-test-title">{{ course.name }}</h2>
     <div class="row">
         <div class="col-lg-8 mt-3 mx-auto">
         {% if grade > 80 %}
             <div class="alert alert-success">
             <!--HINT Display passed info -->
-            <b>Congratulations, {{ user.username }}!</b> You have passed the exam and completed the course with score {{ grade }}/100
+            <b>Congratulations, {{ user.username }}!</b> You have passed the test with score {{ grade }}/100
             </div>
         {% else %}
             <div class="alert alert-danger">
             <!--HINT Display failed info -->
-                <b>Failed</b> Sorry, {{ user.username }}! You have failed the exam with score {{ grade }}/100
+                <b>Your score is {{ grade }}/100</b> Sorry, {{ user.username }}! <a class="link-unstyled font-weight-bold" href="{% url 'courses:start_test' course_id=course.id lesson_id=lesson.id %}">
+                Try again</a> or <a class="link-unstyled font-weight-bold" href="{% url 'courses:course_details' course.id %}">Try another test</a>
             </div>
-            <a class="btn btn-link text-danger" href="{% url 'courses:course_details' course.id %}">Re-test</a>
         {% endif %}
-        <div class="">
-        <h5 class="py-2">Exam results</h5>
-        <!--HINT Display exam results-->
+        <h5 class="py-2">Results</h5>
+        <div class="card-columns-vertical col-lg-10 mt-3 mx-auto">
+         <!--HINT Display exam results-->
         {% for question in lesson.question_set.all %}
-            <div class="card mt-1">
-                <div class="card-header">
-                <h5>{{ question.question_text }}</h5>{{ answers }}
+            <div class="card mt-1 mb-3 border-secondary">
+                {% if question.image != "none" %}
+                <div class="card-header card-header bg-white">
+                    <img class="img-fluid" src="{{ question.image }}">
+                {% else %}
+                <div class="card-header card-header-green">
+                    <h5>{{ question.question_text}}</h5>{{ answers }}
+                    {% endif %}
                 </div>
                 <div class="card-body">
                     {% for choice in question.choice_set.all %}
                         {% if choice.is_correct and choice.id in selected_ids %}
-                            <div class="text-success">Correct answer: {{ choice.choice_text }}</div>
+                    <div class="text-success"><span class="font-weight-bold">{{ choice.choice_text }}</span> Correct!</div>
                         {% else %}
                         {% if not choice.is_correct and choice.id in selected_ids %}
-                            <div class="text-danger">Should not be selected: {{ choice.choice_text }}</div>
+                    <div class="text-danger"><span class="font-weight-bold">{{ choice.choice_text }}</span> Sorry! It's not the correct answer.</div>
                         {% else %}
                         {% if choice.is_correct %}
-                            <div class="text-warning">Not selected: {{ choice.choice_text }}</div>
+                    <div class="text-warning"><span class="font-weight-bold">{{ choice.choice_text }}</span> This is the correct answer</div>
                         {% else %}
                             <div>{{ choice.choice_text }}</div>
                         {% endif %}
